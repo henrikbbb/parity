@@ -1,12 +1,32 @@
-let size = 100
 let n = 6
+let size = 100
 let squares
-
 let checkbox_showNumbers
+let slider
 
 function setup() {
 	createCanvas(800, 800)
 
+
+	let button_shuffle = createButton('neu')
+	button_shuffle.mousePressed(shuffleSquares)
+
+	let divSlider = createDiv()
+	slider = createSlider(3, 20, 6, 1)
+	slider.parent(divSlider)
+	slider.changed(() => {
+		n = slider.value()
+		size = 100 * 6 / slider.value()
+		setupSquares()
+	})
+
+	checkbox_showNumbers = createCheckbox('Zahlen anzeigen', false)
+
+	setupSquares()
+
+}
+
+function setupSquares() {
 	squares = new Array(n)
 	for (let i = 0; i < n; i++){
 		squares[i] = new Array(n)
@@ -14,11 +34,6 @@ function setup() {
 			squares[i][j] = new Square(int((random(2))))
 		}
 	}
-
-	button_shuffle = createButton('neu')
-	button_shuffle.mousePressed(shuffleSquares)
-
-	checkbox_showNumbers = createCheckbox('Zahlen anzeigen', false);
 }
 
 function draw() {
@@ -34,7 +49,7 @@ function draw() {
 function showNumbers(){
 	fill(0)
 	noStroke()
-	textSize(40)
+	textSize(50 * 6 / n)
 	textAlign(CENTER, CENTER)
 
 	for (let i = 0; i < n; i++){
