@@ -2,7 +2,7 @@ let n = 6
 let size = 100
 let squares
 let checkbox_showNumbers
-let slider
+let slider, sliderText
 
 function setup() {
 	createCanvas(800, 800)
@@ -13,12 +13,15 @@ function setup() {
 
 	let divSlider = createDiv()
 	slider = createSlider(3, 20, 6, 1)
+	sliderText = createSpan(n + 'x' + n)
 	slider.parent(divSlider)
-	slider.changed(() => {
+	slider.input(() => {
 		n = slider.value()
 		size = 100 * 6 / slider.value()
 		setupSquares()
+		sliderText.html(n + 'x' + n)
 	})
+	sliderText.parent(divSlider)
 
 	checkbox_showNumbers = createCheckbox('Zahlen anzeigen', false)
 
@@ -133,10 +136,10 @@ class Square{
 		}
 		rect(x, y, size, size)
 
-		if (this.mouseOver(x, y)){
-			strokeWeight(10)
-			rect(x-5, y-5, size+10, size+10)
-		}
+		// if (this.mouseOver(x, y)){
+		// 	strokeWeight(10)
+		// 	rect(x-5, y-5, size+10, size+10)
+		// }
 	}
 
 	mouseOver(x, y){
